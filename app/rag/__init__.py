@@ -1,0 +1,1 @@
+from .faq_rag import build_retriever

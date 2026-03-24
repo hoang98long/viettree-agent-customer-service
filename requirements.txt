@@ -10,3 +10,4 @@ ollama
 
 fastapi
 uvicorn
+pydantic
