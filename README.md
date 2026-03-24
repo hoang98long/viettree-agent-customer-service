@@ -7,7 +7,7 @@ ollama run [model]
 ```
 ## run API:
 ```
-uvicorn app:app --reload
+uvicorn main:app --reload
 ```
 ## Test
 ```
