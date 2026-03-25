@@ -11,3 +11,4 @@ ollama
 fastapi
 uvicorn
 pydantic
+numpy
