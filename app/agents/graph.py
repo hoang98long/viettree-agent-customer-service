@@ -15,7 +15,15 @@ def retrieve_node(state):
     return state
 
 def router_node(state):
-    return "faq" if state["docs"] else "llm"
+    docs = state["docs"]
+
+    if not docs:
+        return "llm"
+
+    if docs[0].metadata.get("score", 0) < 0.7:
+        return "llm"
+
+    return "faq"
 
 def faq_node(state):
     context = "\n".join([d.page_content for d in state["docs"]])
