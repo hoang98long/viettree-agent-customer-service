@@ -7,7 +7,7 @@ from langgraph.prebuilt import ToolNode
 from langgraph.graph.message import add_messages
 
 class AgentState(TypedDict):
-    message: Annotated[Sequence[BaseMessage], add_messages]
+    messages: Annotated[Sequence[BaseMessage], add_messages]
 
 @tool
 def add(a: int, b: int):
@@ -24,11 +24,11 @@ def model_call(state: AgentState) -> AgentState:
     system_promt = SystemMessage(
         content="You are my AI assistant, please answer my query to the best of your ability"
     )
-    respone = model.invoke([system_promt] + state["message"])
-    return {"message": [respone]}
+    respone = model.invoke([system_promt] + state["messages"])
+    return {"messages": [respone]}
 
 def should_continue(state: AgentState):
-    messages = state["message"]
+    messages = state["messages"]
     last_message = messages[-1]
     if not last_message.tool_calls:
         return "end"
@@ -51,16 +51,16 @@ graph.add_conditional_edges(
 )
 
 graph.add_edge("tools", "agent")
-agent = graph.compile
+agent = graph.compile()
 def print_stream(stream):
     for s in stream:
-        message = s["message"][-1]
-        if isinstance(message, tuple):
-            print(message)
+        messages = s["messages"][-1]
+        if isinstance(messages, tuple):
+            print(messages)
         else:
-            message.pretty_print()
+            messages.pretty_print()
 
 inputs = {
-    "message": [("user", "Add 10 + 10")]
+    "messages": [("user", "Add 10 + 10 and add 35 + 36")]
 }
 print_stream(agent.stream(inputs, stream_mode="values"))
