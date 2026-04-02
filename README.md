@@ -1,5 +1,6 @@
 # viettree-agent-customer-service
 viettree-agent-customer-service
+![customer_service_agent](https://github.com/user-attachments/assets/1ab3664e-51bd-47a9-a091-2fd83172c230)
 
 ## run ollma:
 ```
