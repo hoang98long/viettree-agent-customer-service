@@ -14,7 +14,17 @@ def add(a: int, b: int):
     """add 2 numbers function"""
     return a + b
 
-tools = [add]
+@tool
+def subtract(a: int, b: int):
+    """subtract 2 numbers function"""
+    return a - b
+
+@tool
+def multiple(a: int, b: int):
+    """multiple 2 numbers function"""
+    return a * b
+
+tools = [add, subtract, multiple]
 
 model = ChatOllama(
     model="qwen2.5:7b"
@@ -61,6 +71,6 @@ def print_stream(stream):
             messages.pretty_print()
 
 inputs = {
-    "messages": [("user", "Add 10 + 10 and add 35 + 36")]
+    "messages": [("user", "Add 10 + 10, then multiply the result by 6. and tell me a joke")]
 }
 print_stream(agent.stream(inputs, stream_mode="values"))
